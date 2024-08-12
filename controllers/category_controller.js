@@ -3,7 +3,7 @@ import { CategoryModel } from "../models/category_model.js";
 export const recommendFoods = async (bmi) => {
     try {
         let category;
-
+        
         if (bmi < 18.5) { 
             category = await CategoryModel.findOne({ name: 'Weight Gain' });
         } else if (bmi <= 18.5 && bmi <= 24.9) {
