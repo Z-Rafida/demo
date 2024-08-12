@@ -1,0 +1,13 @@
+{
+  "name": "Weight Gain",
+  "description": "Foods rich in calories and nutrients to help increase body weight",
+  "foods": ["Milk", "Cheese"]
+}
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "johndoe@example.com",
+  "userName": "john_doe",
+  "password": "securepassword123"
+}
