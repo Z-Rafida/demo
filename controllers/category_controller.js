@@ -4,7 +4,7 @@ export const recommendFoods = async (bmi) => {
     try {
         let category;
 
-        if (bmi < 18.5) {
+        if (bmi < 18.5) { 
             category = await CategoryModel.findOne({ name: 'Weight Gain' });
         } else if (bmi <= 18.5 && bmi <= 24.9) {
             category = await CategoryModel.findOne({ name: 'General Fitness' });
