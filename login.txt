@@ -11,3 +11,12 @@
   "userName": "john_doe",
   "password": "securepassword123"
 }
+
+{
+ "firstName": "John",
+  "lastName": "Doy",
+  "email": "johndoy@example.com",
+  "userName": "john_doy",
+  "password": "securepassword145",
+  "confirmPassword":"securepassword145"
+}

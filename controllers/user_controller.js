@@ -30,15 +30,15 @@ export const signUp =  async (req, res, next) => {
 // sign in using token
 export const login = async (req, res, next) =>{
     try {
-        const {error, value} = userSchema.validate(req.body);
+        const {email, password} = req.body;
         if (error){
             return res.status(400).send(error.details[0].message)
         }
-        const user = await UserModel.findOne({email: value.email})
+        const user = await UserModel.findOne(email, value.email)
         if (!user){
             return res.status(400).send("user does not exist")
         }
-        const checkPassword = await bcrypt.compare(value.password,user.password)
+        const checkPassword = await bcrypt.compare(password,user.password)
         if (!checkPassword){
             return res.status(400).send("invalid login credentials")
         }

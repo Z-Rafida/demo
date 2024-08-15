@@ -2,8 +2,10 @@ import express from "express";
 import "dotenv/config";
 import mongoose from "mongoose";
 import expressOasGenerator from "@mickeymond/express-oas-generator";
+import cors from "cors";
 import userRouter from "./router/user_router.js";
 import bmiRouter from "./router/bmi_router.js";
+import { recommendationRouter } from "./router/recommendation.js";
 
 
 
@@ -23,8 +25,11 @@ expressOasGenerator.handleResponses(liveup, {
 
 
 liveup.use(express.json());
+liveup.use(cors({credentials: true, origin: "*"}));
+liveup.use(express.static("liveup"));
 liveup.use("/api/v1", userRouter);
 liveup.use("/api/v1", bmiRouter);
+liveup.use("api/v1", recommendationRouter)
 
 
 expressOasGenerator.handleRequests()
