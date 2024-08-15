@@ -8,12 +8,17 @@ export const calculateBmi = async (req, res, next) => {
         }
         const bmiRequirement = await BmiModel.create({weight, height})
         bmiRequirement.save()
-        const bmi = calculate_bmi(weight, height)
-        res.send({bmi})
+
+        const bmi = calculate_bmi(weight, height) 
+
+        function calculate_bmi(weight, height) {
+            let bmi = weight / ((height / 100)**2);
+            return bmi.toFixed(2);
+    } 
+    res.send({bmi})
     } catch (error) {
         next(error)
-    }
-    function calculate_bmi(weight, height) {
-        let bmi = weight / (height * height);
-        return bmi.toFixed(2);
-}}
+    } 
+    };
+
+    

@@ -4,8 +4,7 @@ import mongoose from "mongoose";
 import expressOasGenerator from "@mickeymond/express-oas-generator";
 import userRouter from "./router/user_router.js";
 import bmiRouter from "./router/bmi_router.js";
-import categoryRouter from "./router/category_routes.js";
-import passwordRouter from "./router/password_router.js.js";
+
 
 
 
@@ -26,8 +25,7 @@ expressOasGenerator.handleResponses(liveup, {
 liveup.use(express.json());
 liveup.use("/api/v1", userRouter);
 liveup.use("/api/v1", bmiRouter);
-liveup.use("/api/v1", categoryRouter);
-liveup.use("/api/v1", passwordRouter);
+
 
 expressOasGenerator.handleRequests()
 liveup.use((req, res) => {
