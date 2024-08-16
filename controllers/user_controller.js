@@ -29,26 +29,26 @@ export const signUp =  async (req, res, next) => {
 
 // sign in using token
 export const login = async (req, res, next) =>{
-    try {
         const {email, password} = req.body;
-        if (error){
-            return res.status(400).send(error.details[0].message)
-        }
-        const user = await UserModel.findOne(email, value.email)
+
+       try{
+        const user = await UserModel.findOne({email})
         if (!user){
-            return res.status(400).send("user does not exist")
+            return res.status(404).send("user does not exist")
         }
-        const checkPassword = await bcrypt.compare(password,user.password)
+        const checkPassword = await bcrypt.compare(password, user.password)
         if (!checkPassword){
             return res.status(400).send("invalid login credentials")
         }
         const token = jwt.sign({id:user._id}, process.env.JWT_PRIVATE_KEY, {expiresIn:"24h"})
         res.status(200).json({
             message:"user logged in", 
-            accessToken: token
+            accessToken: token,
+            user: {email: user.email}
         })
     } catch (error) {
-        next (error)
+        console.error(error.message);
+        res.status(500).json({message: "Login unsuccessful"})
     }
 };
 

@@ -2,11 +2,16 @@ import { RecommendationModel } from "../models/recommendation_model.js";
 
 export const createRecommendation = async (req, res) => {
     try {
-        const newMeal = await  RecommendationModel.create(req.body);
-    newMeal.save()
+        const newMeal = await  RecommendationModel.create({
+            ...req.body,
+            image: req.file.filename
+        });
+        console.log (error.message)
     res.status(201).json(newMeal)
+
     } catch (error) {
         console.log(error.message)
+        res.status(500).json({ message: error})
     }
 };
 

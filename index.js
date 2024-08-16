@@ -6,14 +6,9 @@ import cors from "cors";
 import userRouter from "./router/user_router.js";
 import bmiRouter from "./router/bmi_router.js";
 import { recommendationRouter } from "./router/recommendation.js";
+import { restartServer } from "./restart_server.js";
 
 
-
-
-
-await mongoose.connect(process.env.MONGO_URL)
-.then(()=> console.log("database connected")
-);
 
  
 const liveup = express();
@@ -31,14 +26,30 @@ liveup.use("/api/v1", userRouter);
 liveup.use("/api/v1", bmiRouter);
 liveup.use("api/v1", recommendationRouter)
 
-
+liveup.get("/api/v1/health", (req, res) => {
+    res.json({status: "UP"});
+});
 expressOasGenerator.handleRequests()
 liveup.use((req, res) => {
     res.redirect("/api-docs/")
 })
 
+const reboot = async() => {
+    setInterval(restartServer, process.env.INTERVAL)
+}
 
-const port = process.env.PORT || 3000
-liveup.listen(port, () =>{
-    console.log(`liveup is running on port ${port}`)
+await mongoose.connect(process.env.MONGO_URL)
+.then(()=> {
+    const port = process.env.PORT
+    liveup.listen(port, () => {
+        reboot().then(() => {
+            console.log(`Server restarted`);
+        });
+        console.log(`Server is connected to port ${port}`)
+    })
+})
+.catch((err) => {
+    console.log(err);
+    process.exist(-1);
 });
+

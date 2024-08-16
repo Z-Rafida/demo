@@ -20,3 +20,10 @@
   "password": "securepassword145",
   "confirmPassword":"securepassword145"
 }
+
+ "firstName": "John",
+  "lastName": "Dob",
+  "email": "johndob@example.com",
+  "userName": "john_dob",
+  "password": "securepassword146",
+  "confirmPassword":"securepassword146"
