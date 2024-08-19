@@ -1,12 +1,15 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 
 const recommendModel = new Schema({
     mealName: {type: String, unique: true},
     description: {type: String},
     image: {type: String},
-    categoryType: {type: String, enum:["Gain Weight", "Lose Weight", "Stay Fit"],required:true},
+    Bmi: {type: String, required: true},
+    categoryType: {type: Types.ObjectId, ref: 'Category', required: true},
     calories: { type: Number, required: true }
 
+}, {
+    timestamps: true
 });
  
 export const RecommendationModel = model("Recommend", recommendModel);

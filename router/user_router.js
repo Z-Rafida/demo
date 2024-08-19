@@ -4,10 +4,10 @@ import { login, signUp } from "../controllers/user_controller.js";
 const userRouter = Router();
 
 // sign up
-userRouter.post("/users/auth/signup", signUp)
+userRouter.post("/users/signup", signUp)
 
 // login
-userRouter.post("/users/auth/login", login)
+userRouter.post("/users/login", login)
 
 
 export default userRouter;

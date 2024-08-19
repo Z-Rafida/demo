@@ -4,10 +4,10 @@ import { remoteUploads } from "../middlewares/uploads.js";
 
 export const recommendationRouter = Router()
 
-recommendationRouter.post("/recommend", remoteUploads.single("image"), createRecommendation);
+recommendationRouter.post("/recommend",remoteUploads.single("image"),  createRecommendation);
 
 recommendationRouter.patch("/recommend/:id", updateRecommendation);
 
 recommendationRouter.delete("/recommend/:id", deleteRecommendation);
 
-recommendationRouter.get("/recommendbmi", recommendationsbyBmi);
+recommendationRouter.get("/recommend", recommendationsbyBmi);

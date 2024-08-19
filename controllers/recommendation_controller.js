@@ -1,17 +1,18 @@
+import { CategoryModel } from "../models/category_model.js";
 import { RecommendationModel } from "../models/recommendation_model.js";
 
-export const createRecommendation = async (req, res) => {
+export const createRecommendation = async (req, res, next) => {
     try {
         const newMeal = await  RecommendationModel.create({
             ...req.body,
             image: req.file.filename
         });
-        console.log (error.message)
+    
     res.status(201).json(newMeal)
 
     } catch (error) {
-        console.log(error.message)
-        res.status(500).json({ message: error})
+    
+        next(error)
     }
 };
 
@@ -42,18 +43,21 @@ export const deleteRecommendation = async(req, res) => {
 export const recommendationsbyBmi = async(req, res) =>{
     try {
         const {bmi} = req.query;
-        let category;
+        let categoryType;
         if (bmi > 30) {
-            category = 'Lose Weight';
+            categoryType = 'Weight Loss';
           } else if (bmi >= 18.5 && bmi < 29.9) {
-            category = 'Stay Fit';
+            categoryType = 'Stay Fit';
           } else if (bmi < 18.5) {
-            category = 'Gain weight';
+            categoryType = 'Weight Gain';
           } else {
             return res.status(400).json({ error: 'Invalid BMI range' });
           }
-
-          const recommendMeal = await RecommendationModel.find({categoryType});
+          const category = await CategoryModel.findOne({type: categoryType})
+          if (!category){
+            return res.status(404).json('Category not found')
+          }
+          const recommendMeal = await RecommendationModel.find({categoryType:category.id});
           res.json(recommendMeal);
     } catch (error) {
         console.log(error)

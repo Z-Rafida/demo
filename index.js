@@ -6,6 +6,7 @@ import cors from "cors";
 import userRouter from "./router/user_router.js";
 import bmiRouter from "./router/bmi_router.js";
 import { recommendationRouter } from "./router/recommendation.js";
+import categoryRouter from "./router/category_router.js";
 import { restartServer } from "./restart_server.js";
 
 
@@ -24,7 +25,8 @@ liveup.use(cors({credentials: true, origin: "*"}));
 liveup.use(express.static("liveup"));
 liveup.use("/api/v1", userRouter);
 liveup.use("/api/v1", bmiRouter);
-liveup.use("api/v1", recommendationRouter)
+liveup.use("/api/v1", recommendationRouter);
+liveup.use("/api/v1", categoryRouter);
 
 liveup.get("/api/v1/health", (req, res) => {
     res.json({status: "UP"});
